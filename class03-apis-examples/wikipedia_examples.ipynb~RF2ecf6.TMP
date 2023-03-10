@@ -451,17 +451,79 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
+   "id": "cd2aee25",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting wptools\n",
+      "  Using cached wptools-0.4.17-py2.py3-none-any.whl (38 kB)\n",
+      "Requirement already satisfied: lxml in c:\\users\\bleuze3u\\appdata\\local\\programs\\python\\python310\\lib\\site-packages (from wptools) (4.9.2)\n",
+      "Requirement already satisfied: certifi in c:\\users\\bleuze3u\\appdata\\local\\programs\\python\\python310\\lib\\site-packages (from wptools) (2022.12.7)\n",
+      "Collecting pycurl\n",
+      "  Using cached pycurl-7.45.2.tar.gz (234 kB)\n",
+      "  Preparing metadata (setup.py): started\n",
+      "  Preparing metadata (setup.py): finished with status 'error'\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "  error: subprocess-exited-with-error\n",
+      "  \n",
+      "  × python setup.py egg_info did not run successfully.\n",
+      "  │ exit code: 10\n",
+      "  ╰─> [1 lines of output]\n",
+      "      Please specify --curl-dir=/path/to/built/libcurl\n",
+      "      [end of output]\n",
+      "  \n",
+      "  note: This error originates from a subprocess, and is likely not a problem with pip.\n",
+      "error: metadata-generation-failed\n",
+      "\n",
+      "× Encountered error while generating package metadata.\n",
+      "╰─> See above for output.\n",
+      "\n",
+      "note: This is an issue with the package mentioned above, not pip.\n",
+      "hint: See above for details.\n",
+      "\n",
+      "[notice] A new release of pip is available: 23.0 -> 23.0.1\n",
+      "[notice] To update, run: python.exe -m pip install --upgrade pip\n"
+     ]
+    }
+   ],
+   "source": [
+    "!pip install wptools"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
    "id": "8f0716c8",
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'wptools'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[3], line 1\u001b[0m\n\u001b[1;32m----> 1\u001b[0m \u001b[39mimport\u001b[39;00m \u001b[39mwptools\u001b[39;00m\n",
+      "\u001b[1;31mModuleNotFoundError\u001b[0m: No module named 'wptools'"
+     ]
+    }
+   ],
    "source": [
     "import wptools"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 23,
    "id": "b1d28912",
    "metadata": {},
    "outputs": [],
@@ -471,7 +533,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 24,
    "id": "b990258c",
    "metadata": {},
    "outputs": [
@@ -569,7 +631,7 @@
        " 'wanted_labels']"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 24,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -580,7 +642,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 25,
    "id": "6fd6d1c4",
    "metadata": {},
    "outputs": [
@@ -601,7 +663,7 @@
       "  links: <list(37)> Arkansas, Chris Poland, Chrissi Poland, Gmina,...\n",
       "  modified: <dict(1)> page\n",
       "  pageid: 181901\n",
-      "  random: Georg de Lalande\n",
+      "  random: William Barker\n",
       "  requests: <list(1)> query\n",
       "  title: Poland\n",
       "  url: https://pl.wikipedia.org/wiki/Poland\n",
@@ -614,10 +676,10 @@
     {
      "data": {
       "text/plain": [
-       "<wptools.page.WPToolsPage at 0x1e5e47671c0>"
+       "<wptools.page.WPToolsPage at 0x7f267a73ec70>"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 25,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -628,7 +690,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 26,
    "id": "e059b637",
    "metadata": {},
    "outputs": [
@@ -637,7 +699,7 @@
      "output_type": "stream",
      "text": [
       "www.wikidata.org (wikidata) Q299135\n",
-      "www.wikidata.org (labels) P1889|Q4167410|P31|Q7208891\n",
+      "www.wikidata.org (labels) Q4167410|P31|Q7208891|P1889\n",
       "+ query results in cache\n",
       "pl.wikipedia.org (parse) 181901\n",
       "pl.wikipedia.org (restbase) /page/summary/Poland\n",
@@ -653,13 +715,13 @@
       "  extract: <str(1002)> <ul><li>Poland – wioska w Kiribati, na wysp...\n",
       "  iwlinks: <list(1)> https://pl.wiktionary.org/wiki/Poland\n",
       "  label: Poland\n",
-      "  labels: <dict(4)> P1889, Q4167410, P31, Q7208891\n",
+      "  labels: <dict(4)> Q4167410, P31, Q7208891, P1889\n",
       "  length: 2,113\n",
       "  links: <list(37)> Arkansas, Chris Poland, Chrissi Poland, Gmina,...\n",
       "  modified: <dict(2)> page, wikidata\n",
       "  pageid: 181901\n",
       "  parsetree: <str(2182)> <root><template><title>ujednoznacznienie<...\n",
-      "  random: Georg de Lalande\n",
+      "  random: William Barker\n",
       "  requests: <list(5)> query, wikidata, labels, parse, restbase\n",
       "  title: Poland\n",
       "  url: https://pl.wikipedia.org/wiki/Poland\n",
@@ -676,10 +738,10 @@
     {
      "data": {
       "text/plain": [
-       "<wptools.page.WPToolsPage at 0x1e5e47671c0>"
+       "<wptools.page.WPToolsPage at 0x7f267a73ec70>"
       ]
      },
-     "execution_count": 5,
+     "execution_count": 26,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -690,7 +752,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 39,
    "id": "7d53d77f",
    "metadata": {},
    "outputs": [
@@ -700,7 +762,7 @@
        "{'requests': ['query', 'wikidata', 'labels', 'parse', 'restbase'],\n",
        " 'WARNINGS': {'extracts': {'warnings': 'HTML may be malformed and/or unbalanced and may omit inline images. Use at your own risk. Known problems are listed at https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#Caveats.'},\n",
        "  'query': {'warnings': 'Unrecognized value for parameter \"prop\": pageassessments'}},\n",
-       " 'random': 'Georg de Lalande',\n",
+       " 'random': 'Ajos Jeorjos',\n",
        " 'redirected': None,\n",
        " 'pageid': 181901,\n",
        " 'extract': \"<ul><li>Poland – wioska w Kiribati, na wyspie Kiritimati</li>\\n<li>Poland – polska grupa muzyczna</li>\\n<li>Poland Lake – jezioro w Kanadzie</li>\\n<li>Chris Poland – muzyk amerykański</li>\\n<li>Chrissi Poland – wokalistka i multiinstrumentalistka amerykańska</li>\\n<li>Poland – singel amerykańskiego rapera Lil Yachty'ego.</li></ul><p>Miejscowości w USA:\\n</p>\\n<ul><li>Poland – wieś w stanie Nowy Jork, w hrabstwie Herkimer</li>\\n<li>Poland – miasto w stanie Nowy Jork, w hrabstwie Chautauqua</li>\\n<li>Poland – wieś w stanie Ohio, w hrabstwie Mahoning</li>\\n<li>Poland – miasto w stanie Maine, w hrabstwie Androscoggin</li></ul><p>Gminy w USA:\\n</p>\\n<ul><li>Poland (ang. <i>Poland Township</i>) – gmina w stanie Arkansas, w hrabstwie Greene</li>\\n<li>Poland (ang. <i>Poland Township</i>) – gmina w stanie Iowa, w hrabstwie Buena Vista</li>\\n<li>Poland (ang. <i>Poland Town</i>) – gmina w stanie Nowy Jork, w hrabstwie Chautauqua</li>\\n<li>Poland (ang. <i>Poland Township</i>) – gmina w stanie Ohio, w hrabstwie Mahoning</li></ul>\",\n",
@@ -753,10 +815,10 @@
        " 'description': 'strona ujednoznaczniająca',\n",
        " 'label': 'Poland',\n",
        " 'title': 'Poland',\n",
-       " 'labels': {'P1889': 'inne niż',\n",
-       "  'Q4167410': 'strona ujednoznaczniająca w projekcie Wikimedia',\n",
-       "  'P31': 'jest to',\n",
-       "  'Q7208891': 'Poland'},\n",
+       " 'labels': {'P31': 'jest to',\n",
+       "  'P1889': 'inne niż',\n",
+       "  'Q7208891': 'Poland',\n",
+       "  'Q4167410': 'strona ujednoznaczniająca w projekcie Wikimedia'},\n",
        " 'wikidata': {'jest to (P31)': 'strona ujednoznaczniająca w projekcie Wikimedia (Q4167410)',\n",
        "  'inne niż (P1889)': 'Poland (Q7208891)'},\n",
        " 'wikidata_pageid': 288340,\n",
@@ -770,7 +832,7 @@
        " 'exhtml': '<p>Miejscowości w USA:</p><ul><li>Poland – wieś w stanie Nowy Jork, w hrabstwie Herkimer</li>\\n<li>Poland – miasto w stanie Nowy Jork, w hrabstwie Chautauqua</li>\\n<li>Poland – wieś w stanie Ohio, w hrabstwie Mahoning</li>\\n<li>Poland – miasto w stanie Maine, w hrabstwie Androscoggin</li></ul>'}"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 39,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -781,7 +843,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 27,
    "id": "7e1ae2ef",
    "metadata": {},
    "outputs": [],
@@ -791,7 +853,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 28,
    "id": "72b2c6a1",
    "metadata": {},
    "outputs": [],
@@ -801,7 +863,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 29,
    "id": "5df4c475",
    "metadata": {},
    "outputs": [
@@ -828,10 +890,10 @@
     {
      "data": {
       "text/plain": [
-       "<wptools.page.WPToolsPage at 0x1e5e48d0e20>"
+       "<wptools.page.WPToolsPage at 0x7f267a73ed90>"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 29,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -842,7 +904,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 30,
    "id": "9fe65e1c",
    "metadata": {},
    "outputs": [
@@ -859,7 +921,7 @@
        " 'no_recipes': 'true'}"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 30,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -870,7 +932,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 31,
    "id": "a0ed115e",
    "metadata": {},
    "outputs": [],
@@ -880,7 +942,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 32,
    "id": "29c014a2",
    "metadata": {},
    "outputs": [
@@ -889,7 +951,7 @@
      "output_type": "stream",
      "text": [
       "www.wikidata.org (wikidata) Q3698703\n",
-      "www.wikidata.org (labels) P5456|P373|Q212193|P186|P2012|P1705|Q33...\n",
+      "www.wikidata.org (labels) Q212193|P373|P495|Q625825|P508|Q1336026...\n",
       "Note: Wikidata item Q3698703 missing 'instance of' (P31)\n",
       "en.wikipedia.org (imageinfo) File:Crostata limone e zenzero 3.jpg\n",
       "Crostata (en) data\n",
@@ -898,7 +960,7 @@
       "  description: Italian baked tart or pie\n",
       "  image: <list(1)> {'file': 'File:Crostata limone e zenzero 3.jpg'...\n",
       "  label: Crostata\n",
-      "  labels: <dict(23)> P5456, P373, Q212193, P186, P2012, P1705, Q33...\n",
+      "  labels: <dict(23)> Q212193, P373, P495, Q625825, P508, Q13360264...\n",
       "  modified: <dict(1)> wikidata\n",
       "  requests: <list(3)> wikidata, labels, imageinfo\n",
       "  title: Crostata\n",
@@ -912,10 +974,10 @@
     {
      "data": {
       "text/plain": [
-       "<wptools.page.WPToolsPage at 0x1e5e4766ef0>"
+       "<wptools.page.WPToolsPage at 0x7f267a768a90>"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 32,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -926,39 +988,39 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 33,
    "id": "6f250ad0",
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "{'P5456': 'TasteAtlas ID',\n",
+       "{'Q212193': 'Nutella',\n",
        " 'P373': 'Commons category',\n",
-       " 'Q212193': 'Nutella',\n",
-       " 'P186': 'made from material',\n",
-       " 'P2012': 'cuisine',\n",
-       " 'P1705': 'native label',\n",
-       " 'Q3314483': 'fruit',\n",
-       " 'P508': 'BNCF Thesaurus ID',\n",
-       " 'Q1269': 'jam',\n",
-       " 'Q216781': 'ricotta',\n",
-       " 'Q13360264': 'pie',\n",
-       " 'Q192786': 'Italian cuisine',\n",
-       " 'P646': 'Freebase ID',\n",
-       " 'Q625825': 'custard',\n",
-       " 'Q1959325': 'shortcrust pastry',\n",
-       " 'Q2095': 'food',\n",
-       " 'P279': 'subclass of',\n",
-       " 'P8814': 'WordNet 3.1 Synset ID',\n",
-       " 'P571': 'inception',\n",
-       " 'Q1142483': 'tart',\n",
-       " 'P18': 'image',\n",
        " 'P495': 'country of origin',\n",
-       " 'Q38': 'Italy'}"
+       " 'Q625825': 'custard',\n",
+       " 'P508': 'BNCF Thesaurus ID',\n",
+       " 'Q13360264': 'pie',\n",
+       " 'P18': 'image',\n",
+       " 'P186': 'made from material',\n",
+       " 'Q216781': 'ricotta',\n",
+       " 'P8814': 'WordNet 3.1 Synset ID',\n",
+       " 'Q2095': 'food',\n",
+       " 'Q192786': 'Italian cuisine',\n",
+       " 'P279': 'subclass of',\n",
+       " 'Q1142483': 'tart',\n",
+       " 'P2012': 'cuisine',\n",
+       " 'Q1959325': 'shortcrust pastry',\n",
+       " 'P571': 'inception',\n",
+       " 'P5456': 'TasteAtlas ID',\n",
+       " 'Q38': 'Italy',\n",
+       " 'P646': 'Freebase ID',\n",
+       " 'Q3314483': 'fruit',\n",
+       " 'Q1269': 'jam',\n",
+       " 'P1705': 'native label'}"
       ]
      },
-     "execution_count": 13,
+     "execution_count": 33,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -969,7 +1031,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 55,
    "id": "b63499d5",
    "metadata": {},
    "outputs": [
@@ -990,7 +1052,7 @@
        " 'P8814': ['07639542-n']}"
       ]
      },
-     "execution_count": 14,
+     "execution_count": 55,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1001,7 +1063,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 56,
    "id": "cb8e61be",
    "metadata": {},
    "outputs": [
@@ -1027,7 +1089,7 @@
        " 'WordNet 3.1 Synset ID (P8814)': '07639542-n'}"
       ]
      },
-     "execution_count": 15,
+     "execution_count": 56,
      "metadata": {},
      "output_type": "execute_result"
     }
