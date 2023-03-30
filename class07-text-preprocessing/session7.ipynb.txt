@@ -1,0 +1,168 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercises \"Lecture 7: Preprocessing Text\"\n",
+    "\n",
+    "In this session, you will learn to apply some of the pre-processing steps discussed in the lecture. \n",
+    "\n",
+    "* Segmenting a file into sentences and sentences into words (tokenization)\n",
+    "* Removing punctuation and lowercasing\n",
+    "* Removing function words\n",
+    "* Lemmatizing\n",
+    "* POS tagging\n",
+    "* Named Entity Recognition\n",
+    "\n",
+    "As we'll see in the next lectures, all or some of these pre-processing steps are applied when performing statistical analysis on a text collection or when applying machine learning techniques (classification, clustering, regression). \n",
+    "\n",
+    "There are many exercises. Some are marked as OPTIONAL. These are usually complemented with some code showing how to do the task using Spacy, which means that if you haven't done the exercise, you can still implement the task by using the provided (Spacy) code.  In a first pass, I would advise skipping them. In the last exercise, we ask you to use the code and functions developed  during the exercises to preprocess a file containing Wikipedia text.\n",
+    "\n",
+    "Python libraries used: SpaCy    \n",
+    "Datafile: webnlg-test.txt   \n",
+    "Cheatsheet: spacy_cheat_sheet.ipynb"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Loading a SpaCy model and reading 'data/webnlg-test.txt' into a string\n",
+    "\n",
+    "**Exercice 1**\n",
+    "\n",
+    "- Install SpaCy and download English models. Use the en_core_web_sm Model\n",
+    "- Read \"data/webnlg-test.txt\" into a string\n",
+    "- Apply your SpaCy model  to this string"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Sentence Segmentation\n",
+    "\n",
+    "**Exercise 2:** Breaking the text into Sentences\n",
+    "\n",
+    "* Use spaCy to segment the text into sentences.\n",
+    "* Print out the results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 3:** Define a function which takes a SpaCy processed text and segments it into Sentences\n",
+    "\n",
+    "* Define a function which takes as input a file processed by spaCy and outputs the sequence of sentences \n",
+    "identified by spaCy.  \n",
+    "* Print out the results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Tokenization\n",
+    "\n",
+    "**Exercise 4:** Finding the tokens \n",
+    "- Define a function which takes as input a file processed by SpaCy and outputs the sequence of tokens identified by spaCy.\n",
+    "- Print out the result\n",
+    "- Store the result in a variable called \"tokens\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Lowercasing and Removing Punctuation\n",
+    "\n",
+    "**Exercise 5** \n",
+    "\n",
+    "* Use the [maketrans()]( https://docs.python.org/3/library/stdtypes.html?highlight=maketrans#str.maketrans) function to define a translation table which maps each punctuation sign to an empty string. Use the maketrans function with 3 arguments where the third argument is the list of punctuation signs.    \n",
+    "**Hint:** In Python, string.punctuation returns the string made of all punctuation signs.   \n",
+    "N.B. string.punctuation is a method in the string module. Therefore you must first import string.\n",
+    "\n",
+    "* Define a function which lower case a list of tokens and removes punctuation signs  \n",
+    "* Apply this function to the list of tokens produced in the preceding exercise "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Removing Stop Words\n",
+    "\n",
+    "**Exercise 6** \n",
+    "* Define a function which takes in a list of lists of tokens and removes stop words from them\n",
+    "* Apply this function to the list of tokens created in the previous exercise\n",
+    "\n",
+    "* **Hints**\n",
+    "  - NLTK stopwords.words('english') returns a list of stopwords for English\n",
+    "  - Use this list to remove all stop words from the tokenized sentences\n",
+    "  - Python: the syntax \"w not in l\" allows you to check that string w is not in the list l"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part-of-speech (POS) tagging\n",
+    "\n",
+    "**Exercise 7 (OPTIONAL):** Use POS tagging to find all verbs and nouns.\n",
+    "- Define a function which takes a spaCy document as input and returns a list of nouns for tokens with POS tag \"NOUN\" and a list of verbs for tokens with POS tag \"VERB\"\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Named Entity Recognition\n",
+    "\n",
+    "**Exercise 8 (OPTIONAL):** Extract all Person names from the file and print them out using spaCy Named Entity Recogniser\n",
+    "- Define a function which takes a spaCy document as input and returns the list of named entities of type PERSON contained in that document.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Putting it all together\n",
+    "\n",
+    "**Exercise 9**\n",
+    "Now we are going to use the code and functions defined in the preceding exercises to pre-process the webnlg.txt file in one go and extract from it:\n",
+    "- a list of sentences (cf. Exercise 3)\n",
+    "- a list of tokens (cf. Exercise 4)\n",
+    "- a list of lowercased tokens excluding punctuation signs and function words (cf. Exercise 6)\n",
+    "- a list of nouns and verbs (cf. Exercise 7)\n",
+    "- a list of named entities (cf. Exercise 8)\n",
+    "\n",
+    "Define a function which takes a file as input and stores the 5 lists above into a file. Apply this function to the webnlg.txt file. This should yield a new file containing the 5 lists above.\n",
+    "\n",
+    "**N.B.** To be able to save SpaCy objects to a file, you'll need to use the `__repr__()` method which represents SpaCy objects as strings (cf. spacy CS)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
