@@ -1,0 +1,323 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true
+   },
+   "source": [
+    "# Exercise \"Lecture 11: Lexical Semantics\"\n",
+    "\n",
+    "\n",
+    "In this set of exercises, we will convert words to vectors representing their distributional properties. \n",
+    "\n",
+    "In the first part, you will use Gensim and sklearn predefined methods to build an SVD word context matrix from the Wikipedia corpus used in the preceding two lectures and  use cosine to compare the similarity between the vectors representing   words. \n",
+    "\n",
+    "In the second part, you will build a word cooccurrences matrix from the Wikipedia corpus. \n",
+    "\n",
+    "The exercises cover the following points:\n",
+    "\n",
+    "\n",
+    "* Creating word coocurrence matrices\n",
+    "* Applying SVD decomposition\n",
+    "* Finding neighbours\n",
+    "* Converting a corpus to a list of integers where each integer represent a token (this is needed for efficient computation)\n",
+    "* Computing a word frequency distribution "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Store a set of files into a Pandas data frame"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 1:** Store all files in 'data/wkp/' into a pandas dataframe with column Text where each row contains the content of one file\n",
+    "\n",
+    "* use os.scandir to list the files in the directory   \n",
+    "    **11_CS_lexical_semantics-1** \n",
+    "* read each file into a list of strings (one string per file)  \n",
+    "    **11_CS_python-2**\n",
+    "* store the list of strings into a pandas dataframe with header 'Text'   \n",
+    "    **08, pandas_cheat_sheet**\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# PART 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Creating a word cooccurence matrix using vectorizers\n",
+    "\n",
+    "\n",
+    "* Use sklearn vectorizer methods (CountVectorizer, TfidfVectorizer) to convert the corpus (a list of documents) to a _**document/token matrix**_\n",
+    "* Use algebra to create the token/token matrix.  To create a _**token co-occurence matrix**_ , we simply multiply the transpose of the documents/tokens matrix by the documents/token matrix\n",
+    "    * shape of X: (#doc, #tokens)   \n",
+    "    * shape of X transpose: (#tokens, #doc)   \n",
+    "    * shape of X transpose * X : (#tokens, #doc) * (#doc, #tokens) = (#tokens, #tokens)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 2:** \n",
+    "* Convert the Text column of the dataframe created in Exercise 1 into a list of strings   \n",
+    "   **Pandas CS-3**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercice 3:** Creating a document / token matrix\n",
+    "\n",
+    "* Use sklearn [sklearn.feature_extraction.text.CountVectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html) method which transforms a list of documents (strings) into a a document/token matrix where each cell indicates the frequency of a token in a document\n",
+    "* Use the stop_words option to remove stop words"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercice 4:** Print out the word distribution i.e.,  the tokens contained in the document/token matrix and their frequency (use the vocabulary_ attribute of CountVectorizer module, cf. CS)\n",
+    "\n",
+    "Your output should look like this:\n",
+    "\n",
+    "{'donald': 1086, 'pierce': 2502, 'fictional': 1361, 'supervillain': 3261, 'appearing': 280, 'american': 242, 'comic': 720, 'books': 487, 'published': 2650, 'marvel': 2153, 'comics': 722, 'character': 631, 'depicted': 980, 'cyborg': 895, 'commonly': 731, 'enemy': 1205, 'men': 2193, 'portrayed': 2540, 'boyd': 501, 'holbrook': 1659, '2017': 64, 'film': 1371, 'logan': 2052, 'publication': 2649, 'history': 1655, 'appeared': 279, 'uncanny': 3497, '132': 14, 'april': 287, '1980': 32, 'created': 849, 'chris': 659, 'claremont': 677, 'john': 1875, 'byrne': 549, 'appearance': 277, 'modeled': 2247, 'sutherland': 3287, 'comes': 718, 'benjamin': 432, 'franklin': 1435, 'hawkeye': 1602, '1970': 28, 'biography': 448, 'born': 492, 'philadelphia': 2487, 'pennsylvania': 2466, 'appears': 281, 'high': 1647, 'ranking': 2687, 'member': 2187, 'inner': 1797, 'circle': 665, 'hellfire': 1625, 'club': 693, 'holds': 1663, 'position': 2543, 'white': 3656, 'bishop': 451, 'fact': 1318, 'genocidal': 1488, 'mutant': 2289, 'hater': 1595, 'joined': 1877, 'order': 2405, 'kill': 1915, 'members': 2188, 'mutants': 2290, 'addition': 160, 'hating': 1597, 'bigoted': 443, 'certain': 621, 'nationalities': 2312, 'harbors': 1584, 'sense': 2990, 'self': 2986, 'loathing': 2044, 'status': 3177, 'referring': 2739, 'half': 1571, 'man': 2124, 'ceo': 617, 'principal': 2595, 'shareholder': 3029, 'consolidated': 776, 'mining': 2225, 'operates': 2392, 'laboratory': 1946, 'complex': 742, 'cameron': 567, 'kentucky': 1906, 'mercenaries': 2198, 'kidnap': ...."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 5:** Create the co-occurence matrix and apply svd decomposition to it.\n",
+    "\n",
+    "To create a token co-occurence matrix, we simply multiply the transpose of the documents/tokens matrix by the documents/token matrix\n",
+    "\n",
+    "* shape of X: (#doc, #tokens)\n",
+    "* shape of X transpose: (#tokens, #doc)\n",
+    "* shape of X transpose * X : (#tokens, #doc) * (#doc, #tokens) = (#tokens, #tokens)\n",
+    "\n",
+    "\n",
+    "The resulting  matrix A is of size (vocab_length, vocab_length)\n",
+    "\n",
+    "* Use numpy [svd](https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.svd.html) method from the linalg module to apply SVD decomposition to A (A = U * s * V)\n",
+    "  - use the todense() method to create a matrix in dense format\n",
+    "  - when calling fnp.linalg.svd use the null_matrices = False option to ensures that reduced SVD is applied (rather than full SVD)\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 6 (PROVIDED):** Define a function which returns the similarity between 2 tokens"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.metrics.pairwise import cosine_similarity\n",
+    "vocab = count_model.get_feature_names()\n",
+    "token2int = count_model.vocabulary_"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def similarity(embeddings, word1, word2):\n",
+    "  if word1 in vocab and word2 in vocab:\n",
+    "    v1 = embeddings[token2int[word1]].reshape(1, -1)  \n",
+    "    v2 = embeddings[token2int[word2]].reshape(1, -1)\n",
+    "    return cosine_similarity(v1, v2)[0][0]\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 7:** Use the function given in Exercise 6 to measure the similarity between\n",
+    "- escape and fictional\n",
+    "- canada and handbook\n",
+    "- escape and captivity\n",
+    "\n",
+    "You might need to modify that part of the function which defines vocab and token2int to make it compatible with the way you named your vectorizer model"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Part 2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 8:** Clean the corpus \n",
+    "\n",
+    "* Store the content of the 'Text\" column into a string   \n",
+    "    **Pandas CS, \"Extracting all text from a colum\"**\n",
+    "* Tokenize the string into words   \n",
+    "    **NLTK CS**\n",
+    "* Print out the first and the last 10 words of your list of tokens. Do you see tokens that may not be useful for learning word representations ?\n",
+    "* Lower case all tokens and remove all tokens that contains characters that are not letters (OPTIONAL)   \n",
+    "    **NLTK CS**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Create a frequency distribution (OPTIONAL)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 9:** Create a frequency distribution from the list of tokens created in the previous exercise. Print out the 10 most and least frequent tokens.   \n",
+    "   **lexical semantics and stats_and_visu CS**\n",
+    "* Create a frequency distribution by iterating over the list of token while incrementing each token frequency accordingly\n",
+    "* Sort the tokens by decreasing frequency into a list\n",
+    "* Print out the first and last 10 tokens of this list (which tokens are most and least frequent ?)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Convert the corpus to a list of integers"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 10:** Convert the list of tokens created in Exercise 2 (corpus cleaning) into a list of integers\n",
+    "\n",
+    "* Create a dictionary mapping each token to a distinct integer (Cf. Lexical Semantics CS)\n",
+    "* Use this dictionary to convert each token from your cleaned corpus (Exercise 2) into an integer."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Create a dictionary of co-occurences"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 11:** In the previous exercise, you created a list of integers where each integer is the identifier for the corresponding token in your cleaned up corpus. Iterate over that list and for each \"integer token\" *i*:\n",
+    "\n",
+    "* get the neihbours of *i* within a window of size 5 (only looking at the right side of *i*)\n",
+    "* store these neihbours in a dictionary of coocurrences of the form {(i,j):f,} where *(i,j)* are neighbours and *f* is the frequency of the co-occurence \n",
+    "* Sort co-occurences using integer order i.e., if the neighbour *n* is represented by an identifier smaller than *i*, store the co-occurence as *(n,i)*, otherwise as *(i,n)* .\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Compute the SVD decomposition of the Co-occurence Matrix"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 12:** Compute the  SVD decomposition of the word co-occurence matrix you just created\n",
+    "\n",
+    "* Create a matrix A of size (vocab_length, vocab_length)\n",
+    "* Fill each cell *(i,j)* in this matrix with the frequency the co-occurrence between *i* and *j*\n",
+    "* Use numpy [svd](https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.svd.html) method from the linalg module\n",
+    "* full_matrices = False ensures that reduced SVD is applied (rather than full SVD)\n",
+    "\n",
+    "A = U * s * V"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Exercise 13 (PROVIDED):** Define a function which outputs the neighbours of a word"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": false
+   },
+   "outputs": [],
+   "source": [
+    "reverse_vocab = {j: i for i, j in token2int.items()}\n",
+    "\n",
+    "def most_similar(embedding, word, n=10):\n",
+    "  if word in vocab:\n",
+    "    v = embedding[token2int[word]].reshape(1, -1)\n",
+    "    scores = cosine_similarity(v, embedding).reshape(-1)\n",
+    "    result = []\n",
+    "\n",
+    "    # argsort gives n-best scores\n",
+    "    for i in reversed(scores.argsort()[-n:]):\n",
+    "      result.append((reverse_vocab[i], scores[i]))\n",
+    "    return result\n",
+    "\n",
+    "print(most_similar(U, 'fictional'))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(most_similar(U, 'handbook'))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
